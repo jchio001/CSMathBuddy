@@ -85,6 +85,7 @@
                 android:backgroundTint="@color/app_blue"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:numeric="integer"
+                android:inputType="number"
                 android:digits="01"
                 android:visibility="gone"
                 android:singleLine="true"
