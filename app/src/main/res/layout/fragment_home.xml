@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="2dp"
+    android:paddingTop="2dp">
+
+    <TextView
+        android:id="@+id/totalCnt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Total Questions Solved: "
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Total Test Problems Solved: "
+        android:id="@+id/testCnt"
+        android:textStyle="bold"
+        android:layout_below="@+id/totalCnt"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Total Binary Problems Solved: "
+        android:id="@+id/binCnt"
+        android:layout_below="@+id/testCnt"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="21dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Total Hex Problems Solved: "
+        android:id="@+id/hexCnt"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/binCnt"
+        android:layout_alignParentLeft="true" />
+
+</RelativeLayout>
