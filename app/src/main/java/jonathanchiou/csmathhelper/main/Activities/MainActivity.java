@@ -171,14 +171,14 @@ public class MainActivity extends AppCompatActivity{
 
         //noinspection SimplifiableIfStatement
         if (id == android.R.id.home) {
-            if (myDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            if (myDrawerLayout.isDrawerOpen(GravityCompat.START))
+                myDrawerLayout.closeDrawer(Gravity.LEFT);
+            else {
                 View view = getCurrentFocus();
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                myDrawerLayout.closeDrawer(Gravity.LEFT);
-            }
-            else
                 myDrawerLayout.openDrawer(Gravity.LEFT);
+            }
         }
 
         return super.onOptionsItemSelected(item);
