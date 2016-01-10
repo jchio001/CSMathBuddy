@@ -1,16 +1,21 @@
-package jonathanchiou.csmathhelper.main.Activities;
+package jonathanchiou.csmathhelper.main.Fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import jonathanchiou.csmathhelper.R;
 import jonathanchiou.csmathhelper.main.OtherCode.Constants;
 
@@ -22,6 +27,7 @@ public class HomeFragment extends Fragment {
     @Bind(R.id.hexCnt) TextView hexCnt;
 
     SharedPreferences sp;
+    DrawerLayout drawer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parentViewGroup,
@@ -29,6 +35,7 @@ public class HomeFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_home, parentViewGroup, false);
         ButterKnife.bind(this, rootView);
+        drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         setUpCnt();
         return rootView;
@@ -38,6 +45,14 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         setUpCnt();
+    }
+
+    @OnClick(R.id.praticebutton)
+    public void onClick() {
+        if (drawer.isDrawerOpen(GravityCompat.START))
+            drawer.closeDrawer(Gravity.LEFT);
+        else
+            drawer.openDrawer(Gravity.LEFT);
     }
 
     public void setUpCnt() {

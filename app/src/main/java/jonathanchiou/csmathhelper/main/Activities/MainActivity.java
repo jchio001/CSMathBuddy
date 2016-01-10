@@ -23,6 +23,9 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import jonathanchiou.csmathhelper.R;
+import jonathanchiou.csmathhelper.main.Fragments.AlertDialogFragment;
+import jonathanchiou.csmathhelper.main.Fragments.HomeFragment;
+import jonathanchiou.csmathhelper.main.Fragments.MathFragment;
 import jonathanchiou.csmathhelper.main.OtherCode.Constants;
 
 public class MainActivity extends AppCompatActivity{
@@ -30,13 +33,15 @@ public class MainActivity extends AppCompatActivity{
     @Bind(R.id.left_drawer) ListView drawerList;
     @Bind(R.id.drawer_layout) DrawerLayout myDrawerLayout;
 
+    private static MenuItem menuItem;
     private ActionBarDrawerToggle myDrawerToggle;
     private ArrayAdapter<String> myAdapter;
+
 
     Context context;
     SharedPreferences sp;
     android.support.v7.app.ActionBar actionBar;
-    String[] drawerArr = {"Home", "Binary (Practice)", "Hex (Practice)", "Test (Both)"};
+    String[] drawerArr = {Constants.HOME, Constants.BINARY, Constants.HEX, Constants.BOTH};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,14 +121,13 @@ public class MainActivity extends AppCompatActivity{
         }
         else if (id == 3) {
             bundle.putString(Constants.MODE_KEY, Constants.TEST_MODE);
-            tag = Constants.TEST;
+            tag = Constants.BOTH;
         }
         else {
             Toast.makeText(getApplicationContext(), drawerArr[position], Toast.LENGTH_SHORT).show();
             myDrawerLayout.closeDrawer(Gravity.LEFT);
             return;
         }
-
         myDrawerLayout.closeDrawer(Gravity.LEFT);
         actionBar.setTitle(tag);
         getSupportFragmentManager().beginTransaction().replace(R.id.main, mathFrag, tag).commit();
@@ -155,10 +159,16 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    public static MenuItem getMenuItem() {
+        return menuItem;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menuItem = menu.findItem(R.id.refresh);
+        menuItem.setVisible(false);
         return true;
     }
 
@@ -179,6 +189,11 @@ public class MainActivity extends AppCompatActivity{
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 myDrawerLayout.openDrawer(Gravity.LEFT);
             }
+        }
+        else if (id == R.id.action_settings) {
+            android.support.v4.app.FragmentManager fm = this.getSupportFragmentManager();
+            AlertDialogFragment fragment = new AlertDialogFragment();
+            fragment.show(fm, Constants.SETTINGS);
         }
 
         return super.onOptionsItemSelected(item);
