@@ -8,12 +8,14 @@ public class ProblemData {
     private String num2;
     private String result;
     private String mode;
+    private String op;
 
-    public ProblemData(String num1, String num2, String mode, String result) {
+    public ProblemData(String num1, String num2, String mode, String result, String op) {
         this.num1 = num1;
         this.num2 = num2;
         this.mode = mode;
         this.result = result;
+        this.op = op;
     }
 
     public String getNum1() {
@@ -31,4 +33,6 @@ public class ProblemData {
     public String getMode() {
         return mode;
     }
+
+    public String getOp() { return op; }
 }

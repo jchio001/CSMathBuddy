@@ -36,9 +36,8 @@ public class MathFragment extends Fragment {
 
     private String mode;
     private String mode2; //identifier for test mode
-    private String solString; //Used to store hex/bin string that represents the answer
+    private String solString = ""; //Used to store hex/bin string that represents the answer
     private SharedPreferences defaultSp;
-
     private MenuItem refresh;
 
     @Override
@@ -60,6 +59,10 @@ public class MathFragment extends Fragment {
         else if (mode2.equals(Constants.HEX_MODE))
             answer1.setVisibility(View.VISIBLE);
 
+        if (SPHelper.getCbState(getActivity()) == true) {
+            if (setUpResume())
+                return rootView;
+        }
         generateNumbers();
         return rootView;
     }
@@ -73,19 +76,15 @@ public class MathFragment extends Fragment {
     public void onPause() {
         super.onPause();
         if (mode.equals(Constants.BINARY_MODE))
-            SPHelper.saveBinProblem(getActivity(), num1.getText().toString(), num2.getText().toString(),
-                    answer.getText().toString());
+            SPHelper.saveBinProblem(getActivity(), num1.getText().toString(), num2.getText().toString(), solString,
+                    operation.getText().toString());
         else if (mode.equals(Constants.HEX_MODE))
-            SPHelper.saveHexProblem(getActivity(), num1.getText().toString(), num2.getText().toString(),
-                    answer1.getText().toString());
+            SPHelper.saveHexProblem(getActivity(), num1.getText().toString(), num2.getText().toString(), solString,
+                    operation.getText().toString());
         else if(mode.equals(Constants.TEST_MODE)) {
-            String tmp; //to store result
-            if (answer.getVisibility() == View.VISIBLE)
-                tmp = answer.getText().toString();
-            else
-                tmp = answer1.getText().toString();
-
-            SPHelper.saveBothProblem(getActivity(), num1.getText().toString(), num2.getText().toString(), tmp, mode2);
+            //Toast.makeText(getActivity(), "Math: " + mode2, Toast.LENGTH_SHORT).show();
+            SPHelper.saveBothProblem(getActivity(), num1.getText().toString(), num2.getText().toString(), solString, mode2,
+                    operation.getText().toString());
         }
         else {
             Toast.makeText(getActivity(), "Something's broken", Toast.LENGTH_SHORT).show();
@@ -98,15 +97,10 @@ public class MathFragment extends Fragment {
         answer1.setText("");
         Random rand = new Random(); //Need to initialize the RNGesus
 
-        //Intialize problem. Note to self: check subtraction;
+        //Initialize problem. Note to self: check subtraction;
         int rando1 = rand.nextInt(120) + 8;
         int rando2;
         int result;
-
-        if (SPHelper.getCbState(getActivity()) == true) {
-             if (setUpResume())
-                 return;
-        }
 
         int op = rand.nextInt(2);
         //For subtraction, check that num1 > num2 by at least 4!
@@ -130,10 +124,12 @@ public class MathFragment extends Fragment {
             loadMixed(rand, rando1, rando2, result);
         }
         else
-            Toast.makeText(getActivity(), mode, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Mode is messed up: " + mode, Toast.LENGTH_SHORT).show();
         //Have numbers now, so we set the TextViews to have the numbers of the problem
     }
 
+    //If resuming the problem is successful, return true
+    //else, return false.
     public boolean setUpResume() {
         ProblemData data;
         if (mode.equals(Constants.BINARY_MODE))
@@ -150,70 +146,73 @@ public class MathFragment extends Fragment {
 
     public boolean resumeBinProblem() {
         ProblemData data = SPHelper.getProblem(getActivity(), Constants.BIN_KEY1, Constants.BIN_KEY2,
-                Constants.BIN_RESULT_KEY, "");
+                Constants.BIN_RESULT_KEY, Constants.BIN_OP);
 
         String tmp1 = data.getNum1();
         String tmp2 = data.getNum2();
+        String tmp3 = data.getOp();
         if (tmp1.equals("") && tmp2.equals(""))
             return false;
 
         num1.setText(tmp1);
         num2.setText(tmp2);
+        operation.setText(tmp3);
         answer.setVisibility(View.VISIBLE);
         answer1.setVisibility(View.GONE);
-        answer.setText(data.getResult());
+        solString = data.getResult();
         return true;
     }
 
     public boolean resumeHexProblem() {
         ProblemData data = SPHelper.getProblem(getActivity(), Constants.HEX_KEY1, Constants.HEX_KEY2,
-                Constants.HEX_RESULT_KEY, "");
+                Constants.HEX_RESULT_KEY, Constants.HEX_OP);
 
         String tmp1 = data.getNum1();
         String tmp2 = data.getNum2();
+        String tmp3 = data.getOp();
 
         if (tmp1.equals("") && tmp2.equals(""))
             return false;
 
         num1.setText(tmp1);
         num2.setText(tmp2);
+        operation.setText(tmp3);
         answer.setVisibility(View.GONE);
         answer1.setVisibility(View.VISIBLE);
-        answer1.setText(data.getResult());
+        solString = data.getResult();
         return true;
     }
 
     public boolean resumeBothProblem () {
         ProblemData data = SPHelper.getProblem(getActivity(), Constants.BOTH_KEY1, Constants.BOTH_KEY2,
-                Constants.HEX_RESULT_KEY, Constants.TEST_MODE);
+                Constants.BOTH_RESULT_KEY, Constants.BOTH_OP);
 
         String tmp1 = data.getNum1();
         String tmp2 = data.getNum2();
+        String tmp3 = data.getOp();
 
         if (tmp1.equals("") && tmp2.equals(""))
             return false;
 
         num1.setText(tmp1);
         num2.setText(tmp2);
+        operation.setText(tmp3);
         mode2 = data.getMode();
         if (mode2.equals(Constants.BINARY_MODE)) {
             answer.setVisibility(View.VISIBLE);
             answer1.setVisibility(View.GONE);
-            answer.setText(data.getResult());
         }
         else if (mode2.equals(Constants.HEX_MODE)) {
             answer.setVisibility(View.GONE);
             answer1.setVisibility(View.VISIBLE);
-            answer1.setText(data.getResult());
         }
         else {
-            Toast.makeText(getActivity(), "Math: " + mode2, Toast.LENGTH_SHORT).show();
-            return false;
+            //Toast.makeText(getActivity(), "Math: " + mode2, Toast.LENGTH_SHORT).show();
         }
+        solString = data.getResult();
         return true;
     }
 
-    ///Bin works!
     public void loadBinProblem(int rando1, int rando2, int result) {
         num1.setText(ConversionFunctions.decToBin(rando1));
         num2.setText(ConversionFunctions.decToBin(rando2));
@@ -226,7 +225,6 @@ public class MathFragment extends Fragment {
         solString = ConversionFunctions.decToHex(result);
     }
 
-    //don't know if mixed works yet. To be tested!
     public void loadMixed(Random rand, int rando1, int rando2, int result) {
         int problemTypeSeed = rand.nextInt(2);
         if (problemTypeSeed == 0) {
@@ -275,7 +273,7 @@ public class MathFragment extends Fragment {
             updateCount();
         }
         else
-            Toast.makeText(getActivity(), "Wrong!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Wrong! " + solString, Toast.LENGTH_SHORT).show();
     }
 
     @Override

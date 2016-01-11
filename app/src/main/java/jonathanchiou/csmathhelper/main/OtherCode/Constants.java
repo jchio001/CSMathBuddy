@@ -14,11 +14,14 @@ public class Constants {
     public static final String BIN_KEY1 = "BIN1";
     public static final String BIN_KEY2 = "BIN2";
     public static final String BIN_RESULT_KEY = "BINRESULT";
+    public static final String BIN_OP = "BINOP";
     public static final String HEX_KEY1 = "HEX1";
     public static final String HEX_KEY2 = "HEX2";
+    public static final String HEX_OP = "HEXOP";
     public static final String HEX_RESULT_KEY = "HEXRESULT";
     public static final String BOTH_KEY1 = "BOTH1";
     public static final String BOTH_KEY2 = "BOTH2";
+    public static final String BOTH_OP = "BOTHOP";
     public static final String BOTH_MODE_KEY = "MODE2";
     public static final String BOTH_RESULT_KEY = "BOTHRESULT";
 

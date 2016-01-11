@@ -1,17 +1,13 @@
 package jonathanchiou.csmathhelper.main.Fragments;
 
-import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,7 +38,7 @@ public class AlertDialogFragment extends android.support.v4.app.DialogFragment{
     public void onResume() {
         super.onResume();
         Window window = getDialog().getWindow();
-        window.setLayout(800, 450);
+        window.setLayout(825, 475);
         window.setGravity(Gravity.CENTER);
     }
 
