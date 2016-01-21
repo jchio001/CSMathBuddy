@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="6dp"
     tools:context=".main.Fragments.TimedFragment">
 
     <Chronometer
@@ -10,7 +11,150 @@
         android:id="@+id/finalcountup"
         android:format="%s"
         android:textSize="32sp"
+        android:paddingBottom="8dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/finalcountup"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Test1"
+                android:paddingRight="4dp"
+                android:id="@+id/num1"
+                android:layout_gravity="right" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:layout_gravity="center_horizontal" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="4dp"
+                android:layout_gravity="right">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="+"
+                    android:id="@+id/operation"
+                    android:paddingRight="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Test2"
+                    android:id="@+id/num2" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:paddingRight="4dp"
+                android:background="@android:color/black"
+                android:paddingBottom="2dp">
+            </View>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="\?"
+                android:layout_gravity="right"
+                android:paddingRight="4dp"/>
+
+        </LinearLayout>
+        
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_below="@+id/linearLayout"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/space3" />
+
+        <FrameLayout
+            style="@style/blue_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/space3"
+            android:id="@+id/frame1">
+
+            <android.support.v7.widget.AppCompatButton
+                style="@style/ripple_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/answer1"
+                android:layout_alignParentEnd="true" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            style="@style/blue_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/frame1"
+            android:id="@+id/frame2">
+
+            <android.support.v7.widget.AppCompatButton
+                style="@style/ripple_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/answer2"
+                android:layout_alignParentEnd="true" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            style="@style/blue_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/frame2"
+            android:id="@+id/frame3">
+
+            <android.support.v7.widget.AppCompatButton
+                style="@style/ripple_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/answer3"
+                android:layout_alignParentEnd="true" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            style="@style/blue_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/frame3"
+            android:id="@+id/frame4">
+
+            <android.support.v7.widget.AppCompatButton
+                style="@style/ripple_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/answer4"
+                android:layout_alignParentRight="true" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

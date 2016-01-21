@@ -273,7 +273,7 @@ public class MathFragment extends Fragment {
             updateCount();
         }
         else
-            Toast.makeText(getActivity(), "Wrong! " + solString, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Wrong!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

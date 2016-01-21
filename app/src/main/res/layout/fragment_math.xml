@@ -110,14 +110,21 @@
 
         </LinearLayout>
 
-        <Button
+        <FrameLayout
+            style="@style/blue_frame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/blue_button"
-            android:text="Submit"
-            android:id="@+id/Submit"
             android:layout_below="@+id/linearLayout"
-            android:layout_alignEnd="@+id/linearLayout" />
+            android:layout_alignEnd="@+id/linearLayout">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/ripple_button"
+                android:text="Submit"
+                android:id="@+id/Submit" />
+
+        </FrameLayout>
 
     </RelativeLayout>
 
