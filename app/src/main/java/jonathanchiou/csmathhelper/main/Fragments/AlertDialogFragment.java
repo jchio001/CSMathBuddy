@@ -27,8 +27,8 @@ public class AlertDialogFragment extends android.support.v4.app.DialogFragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().setTitle("Settings");
-        View view = inflater.inflate(R.layout.fragment_alertdialog, container);
+        View view = inflater.inflate(R.layout.fragment_alertdialog, container, false);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ButterKnife.bind(this, view);
         cb.setChecked(SPHelper.getCbState(getActivity()));
         return view;

@@ -26,6 +26,7 @@ import jonathanchiou.csmathhelper.R;
 import jonathanchiou.csmathhelper.main.Fragments.AlertDialogFragment;
 import jonathanchiou.csmathhelper.main.Fragments.HomeFragment;
 import jonathanchiou.csmathhelper.main.Fragments.MathFragment;
+import jonathanchiou.csmathhelper.main.Fragments.TimedFragment;
 import jonathanchiou.csmathhelper.main.OtherCode.Constants;
 
 public class MainActivity extends AppCompatActivity{
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity{
     Context context;
     SharedPreferences sp;
     android.support.v7.app.ActionBar actionBar;
-    String[] drawerArr = {Constants.HOME, Constants.BINARY, Constants.HEX, Constants.BOTH};
+    String[] drawerArr = {Constants.HOME, Constants.BINARY, Constants.HEX, Constants.MIXED, Constants.TIMED};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,8 +121,14 @@ public class MainActivity extends AppCompatActivity{
             tag = Constants.HEX;
         }
         else if (id == 3) {
-            bundle.putString(Constants.MODE_KEY, Constants.TEST_MODE);
-            tag = Constants.BOTH;
+            bundle.putString(Constants.MODE_KEY, Constants.MIXED_MODE);
+            tag = Constants.MIXED;
+        }
+        else if (id == 4) {
+            myDrawerLayout.closeDrawer(Gravity.LEFT);
+            actionBar.setTitle(Constants.TIMED);
+            getSupportFragmentManager().beginTransaction().replace(R.id.main, new TimedFragment(), Constants.TIMED).commit();
+            return;
         }
         else {
             Toast.makeText(getApplicationContext(), drawerArr[position], Toast.LENGTH_SHORT).show();

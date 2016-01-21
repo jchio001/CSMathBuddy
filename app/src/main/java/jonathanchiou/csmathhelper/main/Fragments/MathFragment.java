@@ -81,7 +81,7 @@ public class MathFragment extends Fragment {
         else if (mode.equals(Constants.HEX_MODE))
             SPHelper.saveHexProblem(getActivity(), num1.getText().toString(), num2.getText().toString(), solString,
                     operation.getText().toString());
-        else if(mode.equals(Constants.TEST_MODE)) {
+        else if(mode.equals(Constants.MIXED_MODE)) {
             //Toast.makeText(getActivity(), "Math: " + mode2, Toast.LENGTH_SHORT).show();
             SPHelper.saveBothProblem(getActivity(), num1.getText().toString(), num2.getText().toString(), solString, mode2,
                     operation.getText().toString());
@@ -120,7 +120,7 @@ public class MathFragment extends Fragment {
         else if (mode.equals(Constants.HEX_MODE)) {
             loadHexProblem(rando1, rando2, result);
         }
-        else if (mode.equals(Constants.TEST_MODE)) {
+        else if (mode.equals(Constants.MIXED_MODE)) {
             loadMixed(rand, rando1, rando2, result);
         }
         else
@@ -136,7 +136,7 @@ public class MathFragment extends Fragment {
             return resumeBinProblem();
         else if (mode.equals(Constants.HEX_MODE))
             return resumeHexProblem();
-        else if (mode.equals(Constants.TEST_MODE))
+        else if (mode.equals(Constants.MIXED_MODE))
             return resumeBothProblem();
         else
             Toast.makeText(getActivity(), "Failed to load problem", Toast.LENGTH_SHORT).show();
@@ -184,8 +184,8 @@ public class MathFragment extends Fragment {
     }
 
     public boolean resumeBothProblem () {
-        ProblemData data = SPHelper.getProblem(getActivity(), Constants.BOTH_KEY1, Constants.BOTH_KEY2,
-                Constants.BOTH_RESULT_KEY, Constants.BOTH_OP);
+        ProblemData data = SPHelper.getProblem(getActivity(), Constants.MIXED_KEY1, Constants.MIXED_KEY2,
+                Constants.MIXED_RESULT_KEY, Constants.MIXED_OP);
 
         String tmp1 = data.getNum1();
         String tmp2 = data.getNum2();

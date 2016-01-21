@@ -8,12 +8,23 @@
     android:minHeight="0dp"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/title"
+        android:textColor="@color/black"
+        android:text="@string/action_settings"/>
+
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/unsolved"
         android:textSize="18dp"
         android:id="@+id/checkBox"
+        android:layout_below="@+id/title"
         android:checked="false" />
 
     <TextView

@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
         totalCnt.setText(Constants.TOTAL_COUNT_STRING + Integer.toString(totalSolved));
 
         int testSolved = sp.getInt(Constants.TOTAL_SOLVED_TEST_KEY, 0);
-        testCnt.setText(Constants.TOTAL_TEST_CNT_STRING + Integer.toString(testSolved));
+        testCnt.setText(Constants.TOTAL_MIXED_CNT_STRING + Integer.toString(testSolved));
 
         int binSolved = sp.getInt(Constants.TOTAL_SOLVED_BIN_KEY, 0);
         binCnt.setText(Constants.TOTAL_BIN_CNT_STRING + Integer.toString(binSolved));
