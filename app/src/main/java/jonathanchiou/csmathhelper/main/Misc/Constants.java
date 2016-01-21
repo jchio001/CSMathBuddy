@@ -1,4 +1,4 @@
-package jonathanchiou.csmathhelper.main.OtherCode;
+package jonathanchiou.csmathhelper.main.Misc;
 
 /**
  * Created by jman0_000 on 12/18/2015.
@@ -19,27 +19,27 @@ public class Constants {
     public static final String HEX_KEY2 = "HEX2";
     public static final String HEX_OP = "HEXOP";
     public static final String HEX_RESULT_KEY = "HEXRESULT";
-    public static final String BOTH_KEY1 = "BOTH1";
-    public static final String BOTH_KEY2 = "BOTH2";
-    public static final String BOTH_OP = "BOTHOP";
-    public static final String BOTH_MODE_KEY = "MODE2";
-    public static final String BOTH_RESULT_KEY = "BOTHRESULT";
+    public static final String MIXED_KEY1 = "MIXED1";
+    public static final String MIXED_KEY2 = "MIXED2";
+    public static final String MIXED_OP = "MIXEDOP";
+    public static final String MIXED_MODE_KEY = "MODE2";
+    public static final String MIXED_RESULT_KEY = "MIXEDRESULT";
 
     //VALUES
     public static final String BINARY_MODE = "BINARY";
     public static final String HEX_MODE = "HEX";
-    public static final String TEST_MODE = "BOTH";
+    public static final String TEST_MODE = "MIXED";
 
     //RANDO STRING CRAP
     public static final String TOTAL_COUNT_STRING = "Total Questions Solved: ";
     public static final String TOTAL_BIN_CNT_STRING = "Total Binary Questions Solved: ";
     public static final String TOTAL_HEX_CNT_STRING = "Total Hex Questions Solved: ";
-    public static final String TOTAL_TEST_CNT_STRING = "Total Both Questions Solved: ";
+    public static final String TOTAL_TEST_CNT_STRING = "Total Mixed Questions Solved: ";
     public static final String SETTINGS = "SETTINGS";
 
     //FRAGMENT TAGS
     public static final String HOME = "Home";
     public static final String BINARY = "Binary";
     public static final String HEX = "Hex";
-    public static final String BOTH = "Both";
+    public static final String MIXED = "Mixed";
 }

@@ -26,7 +26,7 @@ import jonathanchiou.csmathhelper.R;
 import jonathanchiou.csmathhelper.main.Fragments.AlertDialogFragment;
 import jonathanchiou.csmathhelper.main.Fragments.HomeFragment;
 import jonathanchiou.csmathhelper.main.Fragments.MathFragment;
-import jonathanchiou.csmathhelper.main.OtherCode.Constants;
+import jonathanchiou.csmathhelper.main.Misc.Constants;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity{
     Context context;
     SharedPreferences sp;
     android.support.v7.app.ActionBar actionBar;
-    String[] drawerArr = {Constants.HOME, Constants.BINARY, Constants.HEX, Constants.BOTH};
+    String[] drawerArr = {Constants.HOME, Constants.BINARY, Constants.HEX, Constants.MIXED};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity{
         }
         else if (id == 3) {
             bundle.putString(Constants.MODE_KEY, Constants.TEST_MODE);
-            tag = Constants.BOTH;
+            tag = Constants.MIXED;
         }
         else {
             Toast.makeText(getApplicationContext(), drawerArr[position], Toast.LENGTH_SHORT).show();

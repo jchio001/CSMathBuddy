@@ -16,7 +16,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jonathanchiou.csmathhelper.R;
-import jonathanchiou.csmathhelper.main.OtherCode.Constants;
+import jonathanchiou.csmathhelper.main.Misc.Constants;
 
 public class HomeFragment extends Fragment {
 
@@ -66,6 +66,11 @@ public class HomeFragment extends Fragment {
 
         int hexSolved = sp.getInt(Constants.TOTAL_SOLVED_HEX_KEY, 0);
         hexCnt.setText(Constants.TOTAL_HEX_CNT_STRING + Integer.toString(hexSolved));
+
+        totalCnt.setGravity(Gravity.CENTER_HORIZONTAL);
+        testCnt.setGravity(Gravity.CENTER_HORIZONTAL);
+        binCnt.setGravity(Gravity.CENTER_HORIZONTAL);
+        hexCnt.setGravity(Gravity.CENTER_HORIZONTAL);
     }
 
 }

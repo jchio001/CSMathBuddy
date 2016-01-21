@@ -1,4 +1,4 @@
-package jonathanchiou.csmathhelper.main.OtherCode;
+package jonathanchiou.csmathhelper.main.Misc;
 
 /**
  * Created by jman0_000 on 12/18/2015.

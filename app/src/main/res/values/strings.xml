@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CSMath Helper</string>
+    <string name="app_name">Binary/Hex Helper</string>
     <string name="action_settings">Settings</string>
 
     <string name="title_activity_math">Practice Problems</string>

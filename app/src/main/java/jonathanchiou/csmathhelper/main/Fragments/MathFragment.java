@@ -21,10 +21,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jonathanchiou.csmathhelper.R;
 import jonathanchiou.csmathhelper.main.Activities.MainActivity;
-import jonathanchiou.csmathhelper.main.OtherCode.Constants;
-import jonathanchiou.csmathhelper.main.OtherCode.ConversionFunctions;
-import jonathanchiou.csmathhelper.main.OtherCode.ProblemData;
-import jonathanchiou.csmathhelper.main.OtherCode.SPHelper;
+import jonathanchiou.csmathhelper.main.Misc.Constants;
+import jonathanchiou.csmathhelper.main.Misc.ConversionFunctions;
+import jonathanchiou.csmathhelper.main.Misc.ProblemData;
+import jonathanchiou.csmathhelper.main.Misc.SPHelper;
 
 public class MathFragment extends Fragment {
 
@@ -184,8 +184,8 @@ public class MathFragment extends Fragment {
     }
 
     public boolean resumeBothProblem () {
-        ProblemData data = SPHelper.getProblem(getActivity(), Constants.BOTH_KEY1, Constants.BOTH_KEY2,
-                Constants.BOTH_RESULT_KEY, Constants.BOTH_OP);
+        ProblemData data = SPHelper.getProblem(getActivity(), Constants.MIXED_KEY1, Constants.MIXED_KEY2,
+                Constants.MIXED_RESULT_KEY, Constants.MIXED_OP);
 
         String tmp1 = data.getNum1();
         String tmp2 = data.getNum2();
@@ -273,7 +273,7 @@ public class MathFragment extends Fragment {
             updateCount();
         }
         else
-            Toast.makeText(getActivity(), "Wrong! " + solString, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Wrong!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

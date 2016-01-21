@@ -13,7 +13,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jonathanchiou.csmathhelper.R;
-import jonathanchiou.csmathhelper.main.OtherCode.SPHelper;
+import jonathanchiou.csmathhelper.main.Misc.SPHelper;
 
 /**
  * Created by jman0_000 on 1/9/2016.
@@ -27,8 +27,8 @@ public class AlertDialogFragment extends android.support.v4.app.DialogFragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().setTitle("Settings");
         View view = inflater.inflate(R.layout.fragment_alertdialog, container);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ButterKnife.bind(this, view);
         cb.setChecked(SPHelper.getCbState(getActivity()));
         return view;
