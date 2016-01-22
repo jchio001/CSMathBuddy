@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 import jonathanchiou.csmathhelper.R;
 import jonathanchiou.csmathhelper.main.Fragments.AlertDialogFragment;
 import jonathanchiou.csmathhelper.main.Fragments.HomeFragment;
@@ -55,11 +56,6 @@ public class MainActivity extends AppCompatActivity{
         //set up drawer's contents
         myAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, drawerArr);
         drawerList.setAdapter(myAdapter);
-        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                loadFragment(id, position, view);
-            }
-        });
 
         //action bar stuff
         actionBar = getSupportActionBar();
@@ -97,6 +93,8 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    //TY BASED BUTTERKNIFE.
+    @OnItemClick(R.id.left_drawer)
     public void loadFragment(long id, int position, View view) {
         //hide keyboard
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

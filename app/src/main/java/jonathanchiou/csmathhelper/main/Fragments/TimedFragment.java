@@ -59,7 +59,7 @@ public class TimedFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (!curSnackbar.equals(null) && curSnackbar.isShown())
+        if (curSnackbar != null && curSnackbar.isShown())
             curSnackbar.dismiss();
     }
 
