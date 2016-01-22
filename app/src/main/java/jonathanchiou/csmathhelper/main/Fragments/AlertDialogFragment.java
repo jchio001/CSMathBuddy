@@ -13,7 +13,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jonathanchiou.csmathhelper.R;
-import jonathanchiou.csmathhelper.main.OtherCode.SPHelper;
+import jonathanchiou.csmathhelper.main.Utils.SPHelper;
 
 /**
  * Created by jman0_000 on 1/9/2016.

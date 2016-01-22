@@ -21,10 +21,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jonathanchiou.csmathhelper.R;
 import jonathanchiou.csmathhelper.main.Activities.MainActivity;
-import jonathanchiou.csmathhelper.main.OtherCode.Constants;
-import jonathanchiou.csmathhelper.main.OtherCode.ConversionFunctions;
-import jonathanchiou.csmathhelper.main.OtherCode.ProblemData;
-import jonathanchiou.csmathhelper.main.OtherCode.SPHelper;
+import jonathanchiou.csmathhelper.main.Utils.Constants;
+import jonathanchiou.csmathhelper.main.Utils.ConversionFunctions;
+import jonathanchiou.csmathhelper.main.Utils.ProblemData;
+import jonathanchiou.csmathhelper.main.Utils.SPHelper;
 
 public class MathFragment extends Fragment {
 
@@ -91,7 +91,7 @@ public class MathFragment extends Fragment {
         }
     }
 
-
+    //This is my "RNGesus"; this function is doing all of the problem-generating work
     public void generateNumbers() {
         answer.setText("");
         answer1.setText("");
@@ -137,7 +137,7 @@ public class MathFragment extends Fragment {
         else if (mode.equals(Constants.HEX_MODE))
             return resumeHexProblem();
         else if (mode.equals(Constants.MIXED_MODE))
-            return resumeBothProblem();
+            return resumeMixedProblem();
         else
             Toast.makeText(getActivity(), "Failed to load problem", Toast.LENGTH_SHORT).show();
 
@@ -183,7 +183,7 @@ public class MathFragment extends Fragment {
         return true;
     }
 
-    public boolean resumeBothProblem () {
+    public boolean resumeMixedProblem() {
         ProblemData data = SPHelper.getProblem(getActivity(), Constants.MIXED_KEY1, Constants.MIXED_KEY2,
                 Constants.MIXED_RESULT_KEY, Constants.MIXED_OP);
 

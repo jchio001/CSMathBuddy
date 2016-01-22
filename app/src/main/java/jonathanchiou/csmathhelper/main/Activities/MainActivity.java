@@ -27,7 +27,7 @@ import jonathanchiou.csmathhelper.main.Fragments.AlertDialogFragment;
 import jonathanchiou.csmathhelper.main.Fragments.HomeFragment;
 import jonathanchiou.csmathhelper.main.Fragments.MathFragment;
 import jonathanchiou.csmathhelper.main.Fragments.TimedFragment;
-import jonathanchiou.csmathhelper.main.OtherCode.Constants;
+import jonathanchiou.csmathhelper.main.Utils.Constants;
 
 public class MainActivity extends AppCompatActivity{
 

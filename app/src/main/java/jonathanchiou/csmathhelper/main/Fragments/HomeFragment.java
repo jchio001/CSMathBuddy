@@ -16,7 +16,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jonathanchiou.csmathhelper.R;
-import jonathanchiou.csmathhelper.main.OtherCode.Constants;
+import jonathanchiou.csmathhelper.main.Utils.Constants;
 
 public class HomeFragment extends Fragment {
 

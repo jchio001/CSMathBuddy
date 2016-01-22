@@ -1,8 +1,7 @@
-package jonathanchiou.csmathhelper.main.OtherCode;
+package jonathanchiou.csmathhelper.main.Utils;
 
-/**
- * Created by jman0_000 on 12/18/2015.
- */
+//To be honest, I ripped the methods in this class from my 1st android app
+//Yes the app sucked, but some of the code behind it was good enough to re-use.
 public class ConversionFunctions {
 
     public static String decToBin(int decInt) {

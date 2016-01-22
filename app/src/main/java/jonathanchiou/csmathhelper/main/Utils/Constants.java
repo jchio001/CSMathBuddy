@@ -1,8 +1,5 @@
-package jonathanchiou.csmathhelper.main.OtherCode;
+package jonathanchiou.csmathhelper.main.Utils;
 
-/**
- * Created by jman0_000 on 12/18/2015.
- */
 public class Constants {
     //KEYS
     public static final String MODE_KEY = "MODE";
@@ -43,4 +40,8 @@ public class Constants {
     public static final String HEX = "Hex";
     public static final String MIXED = "Mixed";
     public static final String TIMED = "Timed";
+
+    //Correct/Incorrent display strings
+    public static final String CORRECT = "Correct!";
+    public static final String WRONG = "Wrong!";
 }

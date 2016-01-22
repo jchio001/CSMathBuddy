@@ -1,4 +1,4 @@
-package jonathanchiou.csmathhelper.main.OtherCode;
+package jonathanchiou.csmathhelper.main.Utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,8 +1,8 @@
-package jonathanchiou.csmathhelper.main.OtherCode;
+package jonathanchiou.csmathhelper.main.Utils;
 
-/**
- * Created by jman0_000 on 1/9/2016.
- */
+//Since I'm pulling multiple items to my SharedPreferences
+//I need to make a class so that my fragment(s) are able to receive
+//all 4-5 values at once
 public class ProblemData {
     private String num1;
     private String num2;
