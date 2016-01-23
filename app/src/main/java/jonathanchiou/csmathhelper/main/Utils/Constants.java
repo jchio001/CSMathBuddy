@@ -44,4 +44,12 @@ public class Constants {
     //Correct/Incorrent display strings
     public static final String CORRECT = "Correct!";
     public static final String WRONG = "Wrong!";
+
+    //Timed mode SP constants
+    public static final String TIMED_TIME = "TIMED_TIME";
+    public static final String TIMED_NUM1 = "TIMED_NUM1";
+    public static final String TIMED_NUM2 = "TIMED_NUM2";
+    public static final String TIMED_OP = "TIMED_OP";
+    public static final String TIMED_RESULT = "TIMED_RESULT";
+    public static final String TIMED_SOLUTION = "TIMED_SOLUTION";
 }

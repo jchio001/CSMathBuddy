@@ -1,6 +1,7 @@
 package jonathanchiou.csmathhelper.main.Fragments;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,7 +23,9 @@ import butterknife.OnClick;
 import jonathanchiou.csmathhelper.R;
 import jonathanchiou.csmathhelper.main.Utils.Constants;
 import jonathanchiou.csmathhelper.main.Utils.ConversionFunctions;
+import jonathanchiou.csmathhelper.main.Utils.SPHelper;
 import jonathanchiou.csmathhelper.main.Utils.SnackbarHelper;
+import jonathanchiou.csmathhelper.main.Utils.TimedProblemData;
 
 public class TimedFragment extends Fragment {
 
@@ -40,9 +43,10 @@ public class TimedFragment extends Fragment {
     private ArrayList<Button> buttonList; //for deciding which button is the "answer"
 
     private Snackbar curSnackbar = null;
-    private String mode = "";
     private String solString = "";
     private int solved = 0;
+    private long lastPause = 0;
+    private boolean timerStatedOnCreate = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,9 +55,28 @@ public class TimedFragment extends Fragment {
         varianceArr = new ArrayList<Integer>(Arrays.asList(-2, -4, 2, 4, 6, 8)); //use different variance for large nums?
         ButterKnife.bind(this, view);
         buttonList = new ArrayList<Button>(Arrays.asList(answer1, answer2, answer3, answer4));
+        countup.setBase(SystemClock.elapsedRealtime());
         generateProblem();
-        countup.start();
+        timerStatedOnCreate = true;
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        lastPause = countup.getBase() - SystemClock.elapsedRealtime();
+        countup.stop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (timerStatedOnCreate)
+            timerStatedOnCreate = false;
+        else {
+            countup.setBase(SystemClock.elapsedRealtime() + lastPause);
+            countup.start();
+        }
     }
 
     @Override
@@ -61,10 +84,17 @@ public class TimedFragment extends Fragment {
         super.onDestroyView();
         if (curSnackbar != null && curSnackbar.isShown())
             curSnackbar.dismiss();
+
+        SPHelper.saveTimedProblem(getActivity(), countup.getBase() - SystemClock.elapsedRealtime(), num1.getText().toString(), num2.getText().toString(),
+                operation.getText().toString(), solString, buttonList);
     }
 
     //Re-used most of the code from MathFragment. See that for more info about how I'm RNG-ing.
     public void generateProblem() {
+
+        if (loadSavedProblem())
+            return;
+
         Random rand = new Random();
 
         int rando1 = rand.nextInt(120) + 8;
@@ -88,11 +118,33 @@ public class TimedFragment extends Fragment {
             loadHexProblem(rando1, rando2, result);
     }
 
+    public boolean loadSavedProblem() {
+        TimedProblemData data = SPHelper.getSavedTimedProblem(getActivity());
+        if (data.getNum1().isEmpty() && data.getNum2().isEmpty())
+            return false;
+
+        ArrayList<String> answerSet = data.getAnswerSet();
+
+        //countup.setText(data.getTime());
+        num1.setText(data.getNum1());
+        num2.setText(data.getNum2());
+        operation.setText(data.getOp());
+        solString = data.getResult();
+        answer1.setText(answerSet.get(0));
+        answer2.setText(answerSet.get(1));
+        answer3.setText(answerSet.get(2));
+        answer4.setText(answerSet.get(3));
+        countup.setBase(SystemClock.elapsedRealtime() + data.getTime());
+        countup.start();
+        return true;
+    }
+
     public void loadBinProblem(int rando1, int rando2, int result) {
         num1.setText(ConversionFunctions.decToBin(rando1));
         num2.setText(ConversionFunctions.decToBin(rando2));
         solString = ConversionFunctions.decToBin(result);
         loadAnswerSet(result, Constants.BINARY);
+        countup.start();
     }
 
     public void loadHexProblem(int rando1, int rando2, int result) {
@@ -100,6 +152,7 @@ public class TimedFragment extends Fragment {
         num2.setText(ConversionFunctions.decToHex(rando2));
         solString = ConversionFunctions.decToHex(result);
         loadAnswerSet(result, Constants.HEX);
+        countup.start();
     }
 
     //The fragment has 4 buttons, each button representing a possible solution
@@ -127,10 +180,14 @@ public class TimedFragment extends Fragment {
     @OnClick({R.id.answer1, R.id.answer2, R.id.answer3, R.id.answer4})
     public void onClick(View view) {
         String btnText = ((Button) view).getText().toString();
-        if (btnText.equals(solString))
+        if (btnText.equals(solString)) {
+            ++solved;
             curSnackbar = SnackbarHelper.showSnackbar(getActivity(), ((ViewGroup) getView().getParent()), Constants.CORRECT, true);
+        }
         else
             curSnackbar = SnackbarHelper.showSnackbar(getActivity(), ((ViewGroup) getView().getParent()), Constants.WRONG, false);
+
+        generateProblem();
     }
 
 }
