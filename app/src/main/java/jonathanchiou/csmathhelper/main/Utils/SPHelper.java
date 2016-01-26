@@ -97,4 +97,18 @@ public class SPHelper {
         return new TimedProblemData(time, num1, num2, op, result, solutionSet);
     }
 
+    public static void clearTimedProblemData(Context context) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        sp.edit().putLong(Constants.TIMED_TIME, 0).apply();
+        sp.edit().putString(Constants.TIMED_NUM1, "").apply();
+        sp.edit().putString(Constants.TIMED_NUM2, "").apply();
+        sp.edit().putString(Constants.TIMED_OP, "").apply();
+        sp.edit().putString(Constants.TIMED_RESULT, "").apply();
+
+        for (int i = 0; i < 4; ++i) {
+            sp.edit().putString(Constants.TIMED_SOLUTION +
+                    Integer.toString(i), "").apply();
+        }
+    }
+
 }

@@ -23,12 +23,15 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
+import de.greenrobot.event.EventBus;
 import jonathanchiou.csmathhelper.R;
+import jonathanchiou.csmathhelper.main.Events.ReturnHome;
 import jonathanchiou.csmathhelper.main.Fragments.AlertDialogFragment;
 import jonathanchiou.csmathhelper.main.Fragments.HomeFragment;
 import jonathanchiou.csmathhelper.main.Fragments.MathFragment;
 import jonathanchiou.csmathhelper.main.Fragments.TimedFragment;
 import jonathanchiou.csmathhelper.main.Utils.Constants;
+import jonathanchiou.csmathhelper.main.Utils.SPHelper;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -90,6 +93,29 @@ public class MainActivity extends AppCompatActivity{
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.main, new HomeFragment(), Constants.HOME).commit();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    //I used an EventBus for a fragment to signify that it's done and that it should switch back to the home fragment.
+    //Yes, it works. Yes, it is really primitive. But it works.
+    public void onEvent(ReturnHome returnHome) {
+        if (returnHome.getMsg().equals(Constants.SWITCH_TO_HOME)) {
+            myDrawerLayout.closeDrawer(Gravity.LEFT);
+            actionBar.setTitle(Constants.HOME);
+            getSupportFragmentManager().beginTransaction().replace(R.id.main, new HomeFragment(), Constants.HOME).commit();
+            return;
         }
     }
 

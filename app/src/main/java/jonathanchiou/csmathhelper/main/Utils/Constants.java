@@ -52,4 +52,11 @@ public class Constants {
     public static final String TIMED_OP = "TIMED_OP";
     public static final String TIMED_RESULT = "TIMED_RESULT";
     public static final String TIMED_SOLUTION = "TIMED_SOLUTION";
+
+    //Time Activity Constants
+    public static final String TIME_TAKEN = "Time Taken: ";
+    public static final String SWITCH_TO_HOME = "SWITCH_TO_HOME";
+
+    //Intent keys
+    public static final String TIME_STR_KEY = "TIME_STR_KEY";
 }

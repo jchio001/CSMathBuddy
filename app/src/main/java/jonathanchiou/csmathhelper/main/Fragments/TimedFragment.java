@@ -1,9 +1,11 @@
 package jonathanchiou.csmathhelper.main.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jonathanchiou.csmathhelper.R;
+import jonathanchiou.csmathhelper.main.Activities.TimedStatsActivity;
 import jonathanchiou.csmathhelper.main.Utils.Constants;
 import jonathanchiou.csmathhelper.main.Utils.ConversionFunctions;
 import jonathanchiou.csmathhelper.main.Utils.SPHelper;
@@ -47,6 +50,7 @@ public class TimedFragment extends Fragment {
     private int solved = 0;
     private long lastPause = 0;
     private boolean timerStatedOnCreate = false;
+    private boolean done = false; //user has solved 15 problems
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,8 +60,11 @@ public class TimedFragment extends Fragment {
         ButterKnife.bind(this, view);
         buttonList = new ArrayList<Button>(Arrays.asList(answer1, answer2, answer3, answer4));
         countup.setBase(SystemClock.elapsedRealtime());
-        generateProblem();
         timerStatedOnCreate = true;
+        if (loadSavedProblem())
+            return view;
+
+        generateProblem();
         return view;
     }
 
@@ -85,15 +92,16 @@ public class TimedFragment extends Fragment {
         if (curSnackbar != null && curSnackbar.isShown())
             curSnackbar.dismiss();
 
-        SPHelper.saveTimedProblem(getActivity(), countup.getBase() - SystemClock.elapsedRealtime(), num1.getText().toString(), num2.getText().toString(),
-                operation.getText().toString(), solString, buttonList);
+        //I need to check if the user is done solving the problem set, or else problem data will always be saved
+        //and will always load data from the 15th problem
+        if (!done) {
+            SPHelper.saveTimedProblem(getActivity(), countup.getBase() - SystemClock.elapsedRealtime(), num1.getText().toString(), num2.getText().toString(),
+                    operation.getText().toString(), solString, buttonList);
+        }
     }
 
     //Re-used most of the code from MathFragment. See that for more info about how I'm RNG-ing.
     public void generateProblem() {
-
-        if (loadSavedProblem())
-            return;
 
         Random rand = new Random();
 
@@ -182,6 +190,15 @@ public class TimedFragment extends Fragment {
         String btnText = ((Button) view).getText().toString();
         if (btnText.equals(solString)) {
             ++solved;
+            if (solved >= 1) {
+                done = true;
+                SPHelper.clearTimedProblemData(getActivity());
+                Intent intent = new Intent(getActivity(), TimedStatsActivity.class);
+                intent.putExtra(Constants.TIME_STR_KEY, countup.getText().toString());
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
+                return;
+            }
             curSnackbar = SnackbarHelper.showSnackbar(getActivity(), ((ViewGroup) getView().getParent()), Constants.CORRECT, true);
         }
         else
