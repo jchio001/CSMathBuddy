@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Created by jman0_000 on 1/22/2016.
  */
 public class TimedProblemData {
+    int solved;
     long time;
     String num1;
     String num2;
@@ -13,7 +14,8 @@ public class TimedProblemData {
     String result;
     ArrayList<String> answerSet;
 
-    public TimedProblemData(long time, String num1, String num2, String op, String result, ArrayList<String> answerSet) {
+    public TimedProblemData(int solved, long time, String num1, String num2, String op, String result, ArrayList<String> answerSet) {
+        this.solved = solved;
         this.time = time;
         this.num1 = num1;
         this.num2 = num2;
@@ -21,6 +23,10 @@ public class TimedProblemData {
         this.result = result;
         this.answerSet = answerSet;
     }
+
+    public int getSolved() { return solved; }
+
+    public void setSolved(int solved) { this.solved = solved; }
 
     public Long getTime() { return time; }
 

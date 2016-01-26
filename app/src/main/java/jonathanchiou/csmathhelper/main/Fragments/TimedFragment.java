@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +33,7 @@ public class TimedFragment extends Fragment {
 
     @Bind(R.id.parent) View parent;
     @Bind(R.id.finalcountup) Chronometer countup;
+    @Bind(R.id.solvedcnt) TextView solvedCnt;
     @Bind(R.id.answer1) Button answer1;
     @Bind(R.id.answer2) Button answer2;
     @Bind(R.id.answer3) Button answer3;
@@ -47,7 +47,10 @@ public class TimedFragment extends Fragment {
 
     private Snackbar curSnackbar = null;
     private String solString = "";
+
     private int solved = 0;
+    private int totalProblems = 0;
+
     private long lastPause = 0;
     private boolean timerStatedOnCreate = false;
     private boolean done = false; //user has solved 15 problems
@@ -95,7 +98,7 @@ public class TimedFragment extends Fragment {
         //I need to check if the user is done solving the problem set, or else problem data will always be saved
         //and will always load data from the 15th problem
         if (!done) {
-            SPHelper.saveTimedProblem(getActivity(), countup.getBase() - SystemClock.elapsedRealtime(), num1.getText().toString(), num2.getText().toString(),
+            SPHelper.saveTimedProblem(getActivity(), solved, countup.getBase() - SystemClock.elapsedRealtime(), num1.getText().toString(), num2.getText().toString(),
                     operation.getText().toString(), solString, buttonList);
         }
     }
@@ -120,10 +123,11 @@ public class TimedFragment extends Fragment {
             result = rando1 - rando2;
             operation.setText("-");
         }
+        solvedCnt.setText(Integer.toString(solved));
         if (rand.nextInt(2) == 0)
-            loadBinProblem(rando1, rando2, result);
+            startNewBinProb(rando1, rando2, result);
         else
-            loadHexProblem(rando1, rando2, result);
+            startNewHexProb(rando1, rando2, result);
     }
 
     public boolean loadSavedProblem() {
@@ -133,7 +137,8 @@ public class TimedFragment extends Fragment {
 
         ArrayList<String> answerSet = data.getAnswerSet();
 
-        //countup.setText(data.getTime());
+        solved = data.getSolved();
+        solvedCnt.setText(Integer.toString(solved));
         num1.setText(data.getNum1());
         num2.setText(data.getNum2());
         operation.setText(data.getOp());
@@ -147,7 +152,7 @@ public class TimedFragment extends Fragment {
         return true;
     }
 
-    public void loadBinProblem(int rando1, int rando2, int result) {
+    public void startNewBinProb(int rando1, int rando2, int result) {
         num1.setText(ConversionFunctions.decToBin(rando1));
         num2.setText(ConversionFunctions.decToBin(rando2));
         solString = ConversionFunctions.decToBin(result);
@@ -155,7 +160,7 @@ public class TimedFragment extends Fragment {
         countup.start();
     }
 
-    public void loadHexProblem(int rando1, int rando2, int result) {
+    public void startNewHexProb(int rando1, int rando2, int result) {
         num1.setText(ConversionFunctions.decToHex(rando1));
         num2.setText(ConversionFunctions.decToHex(rando2));
         solString = ConversionFunctions.decToHex(result);
@@ -190,13 +195,18 @@ public class TimedFragment extends Fragment {
         String btnText = ((Button) view).getText().toString();
         if (btnText.equals(solString)) {
             ++solved;
-            if (solved >= 1) {
+            if (solved >= 15) {
                 done = true;
                 SPHelper.clearTimedProblemData(getActivity());
+                if (curSnackbar.isShown())
+                    curSnackbar.dismiss();
+
                 Intent intent = new Intent(getActivity(), TimedStatsActivity.class);
                 intent.putExtra(Constants.TIME_STR_KEY, countup.getText().toString());
+
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
+
                 return;
             }
             curSnackbar = SnackbarHelper.showSnackbar(getActivity(), ((ViewGroup) getView().getParent()), Constants.CORRECT, true);

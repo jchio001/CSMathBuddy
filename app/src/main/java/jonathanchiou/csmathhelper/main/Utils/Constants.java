@@ -46,6 +46,7 @@ public class Constants {
     public static final String WRONG = "Wrong!";
 
     //Timed mode SP constants
+    public static final String TIMED_SOLVED = "TIME_SOLVED";
     public static final String TIMED_TIME = "TIMED_TIME";
     public static final String TIMED_NUM1 = "TIMED_NUM1";
     public static final String TIMED_NUM2 = "TIMED_NUM2";
