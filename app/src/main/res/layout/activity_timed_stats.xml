@@ -17,4 +17,13 @@
         android:id="@+id/timetaken"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Total Problems Attempted: "
+        android:id="@+id/total"
+        android:layout_below="@+id/timetaken"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

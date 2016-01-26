@@ -67,10 +67,11 @@ public class SPHelper {
     }
 
     //Timed mode Functions
-    public static void saveTimedProblem(Context context, int solved, Long time, String num1, String num2, String op, String result,
+    public static void saveTimedProblem(Context context, int solved, int total, Long time, String num1, String num2, String op, String result,
                                    ArrayList<Button> answerSet) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         sp.edit().putInt(Constants.TIMED_SOLVED, solved).apply();
+        sp.edit().putInt(Constants.TIMED_TOTAL, total).apply();
         sp.edit().putLong(Constants.TIMED_TIME, time).apply();
         sp.edit().putString(Constants.TIMED_NUM1, num1).apply();
         sp.edit().putString(Constants.TIMED_NUM2, num2).apply();
@@ -86,6 +87,7 @@ public class SPHelper {
     public static TimedProblemData getSavedTimedProblem(Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         int solved = sp.getInt(Constants.TIMED_SOLVED, 0);
+        int total = sp.getInt(Constants.TIMED_TOTAL, 0);
         long time = sp.getLong(Constants.TIMED_TIME, 0);
         String num1 = sp.getString(Constants.TIMED_NUM1, "");
         String num2 = sp.getString(Constants.TIMED_NUM2, "");
@@ -96,7 +98,7 @@ public class SPHelper {
         for (int i = 0; i < 4; ++i)
             solutionSet.add(sp.getString(Constants.TIMED_SOLUTION + Integer.toString(i), ""));
 
-        return new TimedProblemData(solved, time, num1, num2, op, result, solutionSet);
+        return new TimedProblemData(solved, total, time, num1, num2, op, result, solutionSet);
     }
 
     public static void clearTimedProblemData(Context context) {

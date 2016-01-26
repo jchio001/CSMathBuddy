@@ -15,8 +15,10 @@ import jonathanchiou.csmathhelper.main.Utils.Constants;
 public class TimedStatsActivity extends AppCompatActivity {
 
     @Bind(R.id.timetaken) TextView timeTaken;
+    @Bind(R.id.total) TextView totalTxt;
 
     private String time;
+    private int total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,10 @@ public class TimedStatsActivity extends AppCompatActivity {
         EventBus.getDefault().post(new ReturnHome(Constants.SWITCH_TO_HOME));
 
         time = getIntent().getStringExtra(Constants.TIME_STR_KEY);
+        total = getIntent().getIntExtra(Constants.TIMED_TOTAL, -1);
+
         timeTaken.setText(Constants.TIME_TAKEN + time);
+        totalTxt.setText(Constants.TOTAL_TRIED + Integer.toString(total));
     }
 
     @Override

@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class TimedProblemData {
     int solved;
+    int total;
     long time;
     String num1;
     String num2;
@@ -14,8 +15,9 @@ public class TimedProblemData {
     String result;
     ArrayList<String> answerSet;
 
-    public TimedProblemData(int solved, long time, String num1, String num2, String op, String result, ArrayList<String> answerSet) {
+    public TimedProblemData(int solved, int total, long time, String num1, String num2, String op, String result, ArrayList<String> answerSet) {
         this.solved = solved;
+        this.total = total;
         this.time = time;
         this.num1 = num1;
         this.num2 = num2;
@@ -27,6 +29,10 @@ public class TimedProblemData {
     public int getSolved() { return solved; }
 
     public void setSolved(int solved) { this.solved = solved; }
+
+    public int getTotal() { return total; }
+
+    public void setTotal(int total) { this.total = total; }
 
     public Long getTime() { return time; }
 

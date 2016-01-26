@@ -47,6 +47,7 @@ public class Constants {
 
     //Timed mode SP constants
     public static final String TIMED_SOLVED = "TIME_SOLVED";
+    public static final String TIMED_TOTAL = "TIME_TOTAL";
     public static final String TIMED_TIME = "TIMED_TIME";
     public static final String TIMED_NUM1 = "TIMED_NUM1";
     public static final String TIMED_NUM2 = "TIMED_NUM2";
@@ -56,6 +57,7 @@ public class Constants {
 
     //Time Activity Constants
     public static final String TIME_TAKEN = "Time Taken: ";
+    public static final String TOTAL_TRIED = "Total Problems Attempted: ";
     public static final String SWITCH_TO_HOME = "SWITCH_TO_HOME";
 
     //Intent keys

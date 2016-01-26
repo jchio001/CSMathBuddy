@@ -98,8 +98,8 @@ public class TimedFragment extends Fragment {
         //I need to check if the user is done solving the problem set, or else problem data will always be saved
         //and will always load data from the 15th problem
         if (!done) {
-            SPHelper.saveTimedProblem(getActivity(), solved, countup.getBase() - SystemClock.elapsedRealtime(), num1.getText().toString(), num2.getText().toString(),
-                    operation.getText().toString(), solString, buttonList);
+            SPHelper.saveTimedProblem(getActivity(), solved, totalProblems, countup.getBase() - SystemClock.elapsedRealtime(),
+                    num1.getText().toString(), num2.getText().toString(), operation.getText().toString(), solString, buttonList);
         }
     }
 
@@ -138,6 +138,7 @@ public class TimedFragment extends Fragment {
         ArrayList<String> answerSet = data.getAnswerSet();
 
         solved = data.getSolved();
+        totalProblems = data.getTotal();
         solvedCnt.setText(Integer.toString(solved));
         num1.setText(data.getNum1());
         num2.setText(data.getNum2());
@@ -193,6 +194,7 @@ public class TimedFragment extends Fragment {
     @OnClick({R.id.answer1, R.id.answer2, R.id.answer3, R.id.answer4})
     public void onClick(View view) {
         String btnText = ((Button) view).getText().toString();
+        ++totalProblems;
         if (btnText.equals(solString)) {
             ++solved;
             if (solved >= 15) {
@@ -203,6 +205,7 @@ public class TimedFragment extends Fragment {
 
                 Intent intent = new Intent(getActivity(), TimedStatsActivity.class);
                 intent.putExtra(Constants.TIME_STR_KEY, countup.getText().toString());
+                intent.putExtra(Constants.TIMED_TOTAL, totalProblems);
 
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
